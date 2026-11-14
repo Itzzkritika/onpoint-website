@@ -1,0 +1,3944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Onpoint — Trip In Progress | ASCEND 3.0</title>
+<meta name="description" content="Turn everyday spending into your next travel adventure. Onpoint — where every rupee gets you closer to your dream destination.">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════════
+   RESET & ROOT
+═══════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --op-purple: #6B2FBF;
+  --op-purple-light: #8B4FDF;
+  --op-purple-dark: #4A1A8F;
+  --op-orange: #FF6B35;
+  --op-orange-light: #FF8C5A;
+  --op-gold: #FFD700;
+  --op-cream: #FFF8F0;
+  --op-dark: #0D0B1A;
+  --op-dark2: #1A1535;
+  --op-dark3: #231E44;
+  --op-grey: #8B8BA0;
+  --op-light: #F5F3FF;
+  --gradient-hero: linear-gradient(135deg, #0D0B1A 0%, #1A0F3C 40%, #2D1B69 70%, #4A1A8F 100%);
+  --gradient-purple: linear-gradient(135deg, #6B2FBF, #8B4FDF);
+  --gradient-fire: linear-gradient(135deg, #FF6B35, #FFD700);
+  --gradient-travel: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --shadow-purple: 0 20px 60px rgba(107, 47, 191, 0.4);
+  --shadow-card: 0 8px 32px rgba(0,0,0,0.3);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-lg: 24px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--op-dark);
+  color: #fff;
+  overflow-x: hidden;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ═══════════════════════════════════════════════
+   SCROLLBAR
+═══════════════════════════════════════════════ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--op-dark2); }
+::-webkit-scrollbar-thumb { background: var(--op-purple); border-radius: 3px; }
+
+/* ═══════════════════════════════════════════════
+   TYPOGRAPHY
+═══════════════════════════════════════════════ */
+.font-display { font-family: 'Space Grotesk', sans-serif; }
+.font-serif { font-family: 'Playfair Display', serif; }
+
+/* ═══════════════════════════════════════════════
+   NAVBAR
+═══════════════════════════════════════════════ */
+#navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 20px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: var(--transition);
+}
+
+#navbar.scrolled {
+  background: rgba(13,11,26,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(107,47,191,0.2);
+  padding: 14px 48px;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.nav-logo-icon {
+  width: 38px; height: 38px;
+  background: var(--gradient-purple);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: -1px;
+  color: white;
+  box-shadow: 0 4px 15px rgba(107,47,191,0.5);
+}
+
+.nav-logo-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: white;
+}
+
+.nav-logo-text span { color: var(--op-orange); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  list-style: none;
+}
+
+/* Mobile hamburger */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 1001;
+}
+.nav-hamburger span {
+  width: 24px; height: 2px;
+  background: white;
+  border-radius: 2px;
+  transition: var(--transition);
+}
+.nav-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+@media (max-width: 900px) {
+  .nav-hamburger { display: flex; }
+  .nav-links {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(13,11,26,0.98);
+    backdrop-filter: blur(20px);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 28px;
+    z-index: 1000;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a { font-size: 20px; }
+}
+
+.nav-links a {
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: var(--transition);
+  letter-spacing: 0.3px;
+}
+
+.nav-links a:hover { color: white; }
+
+.nav-cta {
+  background: var(--gradient-purple);
+  color: white !important;
+  padding: 10px 24px !important;
+  border-radius: 50px;
+  box-shadow: 0 4px 20px rgba(107,47,191,0.4);
+  font-weight: 600 !important;
+}
+
+.nav-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 25px rgba(107,47,191,0.6) !important;
+}
+
+/* Badge */
+.comp-badge {
+  position: fixed;
+  top: 90px; right: 24px;
+  background: rgba(255,107,53,0.15);
+  border: 1px solid rgba(255,107,53,0.4);
+  border-radius: 50px;
+  padding: 8px 16px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--op-orange);
+  letter-spacing: 1px;
+  z-index: 999;
+  backdrop-filter: blur(10px);
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION HELPERS
+═══════════════════════════════════════════════ */
+section { position: relative; }
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(107,47,191,0.15);
+  border: 1px solid rgba(107,47,191,0.3);
+  border-radius: 50px;
+  padding: 8px 18px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #B87FFF;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+
+.section-title .accent { color: var(--op-orange); }
+.section-title .purple { color: #B87FFF; }
+
+.section-sub {
+  font-size: 17px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.7;
+  max-width: 580px;
+}
+
+/* ═══════════════════════════════════════════════
+   HERO SECTION
+═══════════════════════════════════════════════ */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: var(--gradient-hero);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated particle canvas */
+#particles-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Glowing orbs */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: float 8s ease-in-out infinite;
+}
+.orb-1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(107,47,191,0.4), transparent 70%); top: -100px; right: -100px; animation-delay: 0s; }
+.orb-2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(255,107,53,0.25), transparent 70%); bottom: -100px; left: 10%; animation-delay: -3s; }
+.orb-3 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(102,126,234,0.3), transparent 70%); top: 50%; left: 50%; animation-delay: -5s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  33% { transform: translateY(-30px) scale(1.05); }
+  66% { transform: translateY(20px) scale(0.97); }
+}
+
+/* Grid overlay */
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(107,47,191,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(107,47,191,0.07) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 60px;
+  padding: 120px 48px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hero-left {}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,107,53,0.1);
+  border: 1px solid rgba(255,107,53,0.3);
+  border-radius: 50px;
+  padding: 8px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--op-orange);
+  margin-bottom: 28px;
+}
+
+.hero-tag .dot {
+  width: 6px; height: 6px;
+  background: var(--op-orange);
+  border-radius: 50%;
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+
+.hero-h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(36px, 5.5vw, 64px);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -1.5px;
+  margin-bottom: 24px;
+}
+
+.hero-h1 .line-1 { display: block; color: white; }
+.hero-h1 .line-2 { display: block; color: white; }
+.hero-h1 .line-3 {
+  display: block;
+  background: linear-gradient(90deg, #FF6B35, #FFD700, #FF6B35);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+.hero-sub {
+  font-size: 18px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.7;
+  margin-bottom: 44px;
+  max-width: 480px;
+}
+
+.hero-sub strong { color: rgba(255,255,255,0.9); }
+
+.hero-ctas {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--gradient-fire);
+  color: white;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 16px 32px;
+  border-radius: 50px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  box-shadow: 0 8px 30px rgba(255,107,53,0.4);
+  transition: var(--transition);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(255,107,53,0.5);
+}
+
+.btn-primary .arrow { transition: transform 0.3s; }
+.btn-primary:hover .arrow { transform: translateX(4px); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.08);
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 16px 32px;
+  border-radius: 50px;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.15);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.14);
+  border-color: rgba(255,255,255,0.3);
+  transform: translateY(-2px);
+}
+
+/* Hero stats */
+.hero-stats {
+  display: flex;
+  gap: 32px;
+  margin-top: 56px;
+  padding-top: 36px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.hero-stat-item {}
+.hero-stat-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+}
+.hero-stat-num .unit { font-size: 18px; color: var(--op-orange); }
+.hero-stat-label {
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+
+/* Phone mockup */
+.hero-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.phone-container {
+  position: relative;
+  width: 300px;
+  animation: phone-float 4s ease-in-out infinite;
+}
+
+@keyframes phone-float {
+  0%, 100% { transform: translateY(0) rotate(2deg); }
+  50% { transform: translateY(-18px) rotate(-1deg); }
+}
+
+.phone-frame {
+  width: 300px;
+  background: linear-gradient(145deg, #1A1535, #2D1B69);
+  border-radius: 44px;
+  border: 2px solid rgba(107,47,191,0.5);
+  box-shadow:
+    0 40px 100px rgba(0,0,0,0.6),
+    0 0 0 1px rgba(107,47,191,0.2),
+    inset 0 1px 0 rgba(255,255,255,0.1);
+  overflow: hidden;
+  position: relative;
+}
+
+.phone-notch {
+  width: 100px; height: 28px;
+  background: #0D0B1A;
+  border-radius: 0 0 20px 20px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+}
+
+.phone-screen {
+  padding: 16px;
+  min-height: 580px;
+  background: linear-gradient(180deg, #0D0B1A 0%, #1A0F3C 100%);
+}
+
+/* App UI inside phone */
+.app-status-bar {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 16px;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.app-greeting {
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+}
+
+.app-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+}
+
+.app-avatar {
+  width: 34px; height: 34px;
+  background: var(--gradient-fire);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* Trip card in app */
+.app-trip-card {
+  background: linear-gradient(135deg, #6B2FBF 0%, #FF6B35 100%);
+  border-radius: 20px;
+  padding: 18px;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.app-trip-card::before {
+  content: '';
+  position: absolute;
+  top: -30px; right: -30px;
+  width: 120px; height: 120px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 50%;
+}
+
+.trip-dest {
+  font-size: 11px;
+  color: rgba(255,255,255,0.75);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.trip-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 14px;
+}
+
+.trip-emoji { font-size: 22px; }
+
+.trip-progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 8px;
+}
+
+.trip-progress-bar {
+  background: rgba(255,255,255,0.2);
+  border-radius: 10px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.trip-progress-fill {
+  height: 100%;
+  background: white;
+  border-radius: 10px;
+  width: 0%;
+  transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.trip-points-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.trip-pts-earned {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+}
+
+.trip-pts-label { font-size: 10px; color: rgba(255,255,255,0.65); }
+
+.trip-pct {
+  background: rgba(255,255,255,0.2);
+  border-radius: 50px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: white;
+}
+
+/* Quick actions */
+.app-quick {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.quick-item {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 10px 6px;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.quick-item:hover {
+  background: rgba(107,47,191,0.2);
+  border-color: rgba(107,47,191,0.4);
+}
+
+.quick-icon { font-size: 20px; margin-bottom: 4px; }
+.quick-label { font-size: 9px; color: rgba(255,255,255,0.6); }
+
+/* Recent activity */
+.app-section-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.activity-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.activity-icon {
+  width: 32px; height: 32px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.activity-info {}
+.activity-name { font-size: 12px; font-weight: 600; color: white; }
+.activity-date { font-size: 10px; color: rgba(255,255,255,0.4); }
+
+.activity-pts {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #A78BFA;
+}
+
+/* Phone glow ring */
+.phone-glow-ring {
+  position: absolute;
+  inset: -30px;
+  border-radius: 60px;
+  background: transparent;
+  border: 1px solid rgba(107,47,191,0.2);
+  animation: ring-pulse 3s ease-in-out infinite;
+}
+
+.phone-glow-ring-2 {
+  position: absolute;
+  inset: -60px;
+  border-radius: 80px;
+  background: transparent;
+  border: 1px solid rgba(107,47,191,0.1);
+  animation: ring-pulse 3s ease-in-out infinite 1s;
+}
+
+@keyframes ring-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.02); }
+}
+
+/* Floating badges around phone */
+.phone-badge {
+  position: absolute;
+  background: rgba(13,11,26,0.9);
+  border: 1px solid rgba(107,47,191,0.4);
+  backdrop-filter: blur(10px);
+  border-radius: 14px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: badge-float 4s ease-in-out infinite;
+  white-space: nowrap;
+}
+
+.badge-left { left: -120px; top: 20%; animation-delay: -1s; }
+.badge-right { right: -100px; bottom: 25%; animation-delay: -2.5s; }
+.badge-top { left: -60px; top: -30px; animation-delay: -0.5s; }
+
+@keyframes badge-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.pb-icon { font-size: 20px; }
+.pb-text {}
+.pb-label { font-size: 10px; color: rgba(255,255,255,0.5); }
+.pb-value { font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; color: white; }
+
+/* ═══════════════════════════════════════════════
+   SCROLL INDICATOR
+═══════════════════════════════════════════════ */
+.scroll-indicator {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.4);
+  font-size: 11px;
+  letter-spacing: 1px;
+  animation: bounce-scroll 2s ease-in-out infinite;
+}
+
+@keyframes bounce-scroll {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+.scroll-line {
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, rgba(107,47,191,0.8), transparent);
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION 2: BEFORE / AFTER TRANSFORMATION
+═══════════════════════════════════════════════ */
+#transformation {
+  padding: 120px 0;
+  background: linear-gradient(180deg, var(--op-dark) 0%, var(--op-dark2) 100%);
+}
+
+.transformation-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50px;
+  padding: 6px;
+  width: fit-content;
+  margin: 0 auto 60px;
+}
+
+.toggle-btn {
+  padding: 12px 32px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  transition: var(--transition);
+  background: transparent;
+  color: rgba(255,255,255,0.5);
+}
+
+.toggle-btn.active {
+  background: var(--gradient-purple);
+  color: white;
+  box-shadow: 0 4px 20px rgba(107,47,191,0.4);
+}
+
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.comp-side {
+  padding: 56px 48px;
+  position: relative;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.comp-before {
+  background: linear-gradient(135deg, #1A1535, #0D0B1A);
+}
+
+.comp-after {
+  background: linear-gradient(135deg, #1E0A3C, #2D1B69);
+}
+
+.comp-label-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+
+.label-before { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); }
+.label-after { background: rgba(107,47,191,0.2); color: #B87FFF; border: 1px solid rgba(107,47,191,0.3); }
+
+.comp-heading {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 32px;
+  line-height: 1.2;
+}
+
+.comp-items { list-style: none; }
+
+.comp-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 15px;
+  color: rgba(255,255,255,0.75);
+  transition: var(--transition);
+}
+
+.comp-item:last-child { border-bottom: none; }
+
+.comp-item-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.icon-bad { background: rgba(239,68,68,0.15); }
+.icon-good { background: rgba(107,47,191,0.2); }
+
+.comp-divider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.divider-arrow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px; height: 56px;
+  background: var(--gradient-fire);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  box-shadow: 0 8px 30px rgba(255,107,53,0.5);
+  z-index: 10;
+  animation: arrow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes arrow-pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.1); }
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION 3: STRATEGY — TRIP IN PROGRESS
+═══════════════════════════════════════════════ */
+#strategy {
+  padding: 120px 0;
+  background: var(--op-dark2);
+  overflow: hidden;
+}
+
+.strategy-headline {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.strategy-pillars {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 80px;
+}
+
+.pillar-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-lg);
+  padding: 36px 28px;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.pillar-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-purple);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.pillar-card:hover {
+  border-color: rgba(107,47,191,0.5);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-purple);
+}
+
+.pillar-card:hover::before { opacity: 0.08; }
+
+.pillar-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 48px;
+  font-weight: 800;
+  color: rgba(107,47,191,0.2);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.pillar-icon-wrap {
+  width: 56px; height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+
+.pillar-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.pillar-desc {
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.65;
+}
+
+/* Full flow animation */
+.flow-track {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 60px 0;
+  position: relative;
+}
+
+.flow-track::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(107,47,191,0.4), rgba(255,107,53,0.4), transparent);
+  transform: translateY(-50%);
+}
+
+.flow-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+  z-index: 10;
+}
+
+.flow-circle {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  position: relative;
+  transition: var(--transition);
+}
+
+.flow-circle:hover { transform: scale(1.1); }
+
+.flow-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.7);
+  text-align: center;
+}
+
+.flow-arrow {
+  font-size: 24px;
+  color: rgba(107,47,191,0.5);
+  margin: 0 20px;
+  position: relative;
+  z-index: 10;
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION 4: INTERACTIVE TRIP METER (STAR)
+═══════════════════════════════════════════════ */
+#trip-meter {
+  padding: 120px 0;
+  background: linear-gradient(180deg, var(--op-dark2) 0%, #0A0718 100%);
+}
+
+.trip-meter-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+/* Destination selector */
+.dest-selector { margin-bottom: 32px; }
+
+.dest-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 14px;
+}
+
+.dest-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.dest-card {
+  background: rgba(255,255,255,0.04);
+  border: 2px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 16px;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.dest-card.selected {
+  border-color: var(--op-purple);
+  background: rgba(107,47,191,0.12);
+}
+
+.dest-card:hover {
+  border-color: rgba(107,47,191,0.4);
+  transform: translateY(-3px);
+}
+
+.dest-card-emoji { font-size: 28px; margin-bottom: 8px; display: block; }
+.dest-card-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 15px; }
+.dest-card-pts { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+
+.dest-check {
+  position: absolute;
+  top: 10px; right: 10px;
+  width: 20px; height: 20px;
+  background: var(--gradient-purple);
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+}
+
+.dest-card.selected .dest-check { display: flex; }
+
+/* Spending input */
+.spending-section { margin-bottom: 32px; }
+
+.spending-categories {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.spend-cat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50px;
+  padding: 8px 16px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: var(--transition);
+  color: rgba(255,255,255,0.65);
+}
+
+.spend-cat.active {
+  background: rgba(107,47,191,0.2);
+  border-color: rgba(107,47,191,0.5);
+  color: white;
+}
+
+.spend-cat:hover { border-color: rgba(107,47,191,0.4); }
+
+/* Spend slider */
+.spend-slider-wrap {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 28px;
+}
+
+.spend-amount-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.spend-amount {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: white;
+}
+
+.spend-currency { font-size: 20px; color: var(--op-orange); }
+
+.spend-unit {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+}
+
+.range-input {
+  width: 100%;
+  -webkit-appearance: none;
+  height: 6px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 3px;
+  outline: none;
+  margin: 16px 0;
+  cursor: pointer;
+}
+
+.range-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 24px; height: 24px;
+  background: var(--gradient-fire);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255,107,53,0.5);
+  transition: var(--transition);
+}
+
+.range-input::-webkit-slider-thumb:hover { transform: scale(1.2); }
+
+/* Firefox range thumb */
+.range-input::-moz-range-thumb {
+  width: 24px; height: 24px;
+  background: var(--gradient-fire);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255,107,53,0.5);
+  border: none;
+}
+
+.range-input::-moz-range-track {
+  height: 6px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 3px;
+  border: none;
+}
+
+.range-marks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+}
+
+/* Results panel (right side) */
+.trip-results {
+  position: sticky;
+  top: 100px;
+}
+
+.results-card {
+  background: linear-gradient(135deg, rgba(107,47,191,0.15), rgba(255,107,53,0.1));
+  border: 1px solid rgba(107,47,191,0.3);
+  border-radius: 24px;
+  padding: 36px;
+  margin-bottom: 20px;
+}
+
+.results-destination {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.results-dest-emoji { font-size: 40px; }
+.results-dest-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+}
+.results-dest-sub { font-size: 13px; color: rgba(255,255,255,0.5); }
+
+/* Big progress ring */
+.progress-ring-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 28px;
+  position: relative;
+}
+
+.progress-ring-svg {
+  transform: rotate(-90deg);
+  width: 180px; height: 180px;
+}
+
+.progress-ring-bg {
+  fill: none;
+  stroke: rgba(255,255,255,0.08);
+  stroke-width: 12;
+}
+
+.progress-ring-fill {
+  fill: none;
+  stroke: url(#ring-gradient);
+  stroke-width: 12;
+  stroke-linecap: round;
+  stroke-dasharray: 502;
+  stroke-dashoffset: 502;
+  transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ring-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.ring-pct {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  color: white;
+}
+
+.ring-label {
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 1px;
+}
+
+/* Stats grid */
+.results-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.stat-box {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.stat-box-label {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.stat-box-value {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+}
+
+.stat-box-value.purple { color: #B87FFF; }
+.stat-box-value.orange { color: var(--op-orange); }
+.stat-box-value.green { color: #4ade80; }
+
+.timeline-bar {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.timeline-title {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 14px;
+}
+
+.timeline-items { display: flex; flex-direction: column; gap: 10px; }
+
+.tl-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.tl-left { display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.65); }
+.tl-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+}
+
+.tl-value {
+  font-weight: 600;
+  color: #B87FFF;
+  font-size: 12px;
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION 5: CAMPAIGN — SIDE QUEST FUND
+═══════════════════════════════════════════════ */
+#campaign {
+  padding: 120px 0;
+  background: linear-gradient(180deg, #0A0718 0%, var(--op-dark) 100%);
+  overflow: hidden;
+}
+
+.campaign-hero {
+  text-align: center;
+  margin-bottom: 80px;
+  position: relative;
+}
+
+.campaign-tagline {
+  display: inline-block;
+  background: var(--gradient-fire);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 800;
+  letter-spacing: -2px;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.campaign-sub {
+  font-size: 18px;
+  color: rgba(255,255,255,0.6);
+  max-width: 560px;
+  margin: 0 auto 48px;
+}
+
+/* Activation phases */
+.phases-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 80px;
+}
+
+.phase-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 36px 28px;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.phase-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(107,47,191,0.4);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+
+.phase-num-bg {
+  position: absolute;
+  top: -10px; right: 20px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 100px;
+  font-weight: 900;
+  color: rgba(107,47,191,0.06);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.phase-icon {
+  font-size: 36px;
+  margin-bottom: 16px;
+}
+
+.phase-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.phase-sub {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--op-orange);
+  margin-bottom: 14px;
+}
+
+.phase-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.65;
+}
+
+/* Social share card creator */
+.share-card-section {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24px;
+  padding: 56px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.share-card-preview {
+  position: relative;
+}
+
+.share-card {
+  background: linear-gradient(135deg, #6B2FBF 0%, #FF6B35 100%);
+  border-radius: 24px;
+  padding: 36px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+  transition: var(--transition);
+}
+
+.share-card::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 200px; height: 200px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 50%;
+}
+
+.share-card::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: -40px;
+  width: 150px; height: 150px;
+  background: rgba(0,0,0,0.1);
+  border-radius: 50%;
+}
+
+.sc-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.sc-logo-box {
+  width: 32px; height: 32px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 800;
+  color: white;
+}
+
+.sc-logo-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: white;
+}
+
+.sc-user {
+  font-size: 13px;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 4px;
+}
+
+.sc-dest {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: white;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.sc-pct {
+  font-size: 13px;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 10px;
+}
+
+.sc-bar {
+  background: rgba(255,255,255,0.2);
+  border-radius: 50px;
+  height: 10px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.sc-bar-fill {
+  height: 100%;
+  background: white;
+  border-radius: 50px;
+  width: 73%;
+}
+
+.sc-hashtag {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+}
+
+/* Share customizer */
+.share-customizer {}
+
+.customizer-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.customizer-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 28px;
+  line-height: 1.65;
+}
+
+.customizer-field {
+  margin-bottom: 20px;
+}
+
+.field-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 10px;
+  display: block;
+}
+
+.field-input {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 14px 18px;
+  color: white;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: var(--transition);
+}
+
+.field-input:focus {
+  border-color: rgba(107,47,191,0.6);
+  background: rgba(107,47,191,0.08);
+}
+
+.dest-picker {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.dest-pick-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50px;
+  padding: 8px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  color: rgba(255,255,255,0.65);
+  transition: var(--transition);
+}
+
+.dest-pick-btn.active, .dest-pick-btn:hover {
+  background: rgba(107,47,191,0.2);
+  border-color: rgba(107,47,191,0.5);
+  color: white;
+}
+
+.generate-btn {
+  width: 100%;
+  background: var(--gradient-fire);
+  color: white;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 16px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 8px 25px rgba(255,107,53,0.35);
+  transition: var(--transition);
+  margin-top: 24px;
+}
+
+.generate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(255,107,53,0.5);
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION 6: HOW IT WORKS
+═══════════════════════════════════════════════ */
+#how-it-works {
+  padding: 120px 0;
+  background: var(--op-dark2);
+}
+
+.steps-timeline {
+  position: relative;
+  margin-top: 60px;
+}
+
+.steps-timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, rgba(107,47,191,0.5), rgba(255,107,53,0.5), transparent);
+  transform: translateX(-50%);
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.step-item:nth-child(even) { flex-direction: row-reverse; }
+
+.step-content {
+  flex: 1;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 36px;
+  transition: var(--transition);
+}
+
+.step-content:hover {
+  border-color: rgba(107,47,191,0.4);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+.step-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--op-orange);
+  margin-bottom: 10px;
+}
+
+.step-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.step-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.7;
+}
+
+.step-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.step-tag {
+  background: rgba(107,47,191,0.15);
+  border: 1px solid rgba(107,47,191,0.25);
+  border-radius: 50px;
+  padding: 4px 12px;
+  font-size: 11px;
+  color: #B87FFF;
+  font-weight: 500;
+}
+
+.step-node {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 56px; height: 56px;
+  background: var(--gradient-purple);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  box-shadow: 0 8px 25px rgba(107,47,191,0.5);
+  z-index: 10;
+  flex-shrink: 0;
+  border: 3px solid var(--op-dark2);
+}
+
+.step-spacer { flex: 1; }
+
+/* ═══════════════════════════════════════════════
+   SECTION 7: TRUST SIGNALS & PARTNERS
+═══════════════════════════════════════════════ */
+#trust {
+  padding: 100px 0;
+  background: var(--op-dark);
+}
+
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 60px;
+}
+
+.trust-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 20px;
+  padding: 36px 28px;
+  text-align: center;
+  transition: var(--transition);
+}
+
+.trust-card:hover {
+  border-color: rgba(107,47,191,0.3);
+  transform: translateY(-4px);
+}
+
+.trust-icon {
+  font-size: 44px;
+  margin-bottom: 16px;
+}
+
+.trust-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 6px;
+}
+
+.trust-num .unit { color: var(--op-orange); }
+
+.trust-label {
+  font-size: 14px;
+  color: rgba(255,255,255,0.55);
+}
+
+/* Partners marquee */
+.partners-section {
+  margin-top: 80px;
+  padding-top: 60px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.partners-label {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 36px;
+}
+
+.partners-marquee {
+  overflow: hidden;
+  position: relative;
+}
+
+.partners-marquee::before, .partners-marquee::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 100px;
+  z-index: 10;
+}
+
+.partners-marquee::before {
+  left: 0;
+  background: linear-gradient(to right, var(--op-dark), transparent);
+}
+
+.partners-marquee::after {
+  right: 0;
+  background: linear-gradient(to left, var(--op-dark), transparent);
+}
+
+.partners-track {
+  display: flex;
+  gap: 40px;
+  animation: marquee 25s linear infinite;
+  width: max-content;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.partner-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 50px;
+  padding: 12px 24px;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+}
+
+.partner-item span { font-size: 20px; }
+
+/* ═══════════════════════════════════════════════
+   SECTION 8: GEN Z INSIGHT & RESEARCH
+═══════════════════════════════════════════════ */
+#insights {
+  padding: 120px 0;
+  background: linear-gradient(180deg, var(--op-dark) 0%, var(--op-dark2) 100%);
+}
+
+.insights-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 60px;
+}
+
+.insight-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 36px;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.insight-card:hover {
+  border-color: rgba(107,47,191,0.4);
+  transform: translateY(-4px);
+}
+
+.insight-quote {
+  font-size: 48px;
+  color: rgba(107,47,191,0.4);
+  line-height: 1;
+  margin-bottom: 10px;
+  font-family: serif;
+}
+
+.insight-stat {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+
+.insight-stat .pct { color: var(--op-orange); }
+
+.insight-text {
+  font-size: 15px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.65;
+}
+
+.insight-source {
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  margin-top: 14px;
+  letter-spacing: 0.5px;
+}
+
+/* Bar chart insight */
+.insight-bars {
+  margin-top: 20px;
+}
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.65);
+}
+
+.bar-label { width: 100px; flex-shrink: 0; }
+
+.bar-track {
+  flex: 1;
+  height: 8px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: var(--gradient-purple);
+  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 0%;
+}
+
+.bar-pct { width: 36px; text-align: right; color: #B87FFF; font-weight: 600; }
+
+/* ═══════════════════════════════════════════════
+   SECTION 9: JUDGING / STRATEGY SUMMARY
+═══════════════════════════════════════════════ */
+#summary {
+  padding: 120px 0;
+  background: var(--op-dark2);
+}
+
+.strategy-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 60px;
+}
+
+.strategy-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 36px;
+  transition: var(--transition);
+}
+
+.strategy-card:hover {
+  border-color: rgba(107,47,191,0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+
+.sc-icon-wrap {
+  width: 56px; height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+
+.sc-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 12px;
+}
+
+.sc-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.7;
+}
+
+.sc-bullets {
+  margin-top: 16px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sc-bullet {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+}
+
+.sc-bullet::before {
+  content: '→';
+  color: var(--op-orange);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION 10: CTA / FOOTER
+═══════════════════════════════════════════════ */
+#final-cta {
+  padding: 120px 0 60px;
+  background: linear-gradient(180deg, var(--op-dark2) 0%, var(--op-dark) 100%);
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.cta-glow {
+  position: absolute;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(107,47,191,0.2), transparent 70%);
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.cta-headline {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(40px, 7vw, 80px);
+  font-weight: 800;
+  letter-spacing: -2px;
+  line-height: 1.08;
+  color: white;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 10;
+}
+
+.cta-headline .accent {
+  background: var(--gradient-fire);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cta-sub {
+  font-size: 18px;
+  color: rgba(255,255,255,0.55);
+  max-width: 500px;
+  margin: 0 auto 48px;
+  position: relative;
+  z-index: 10;
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 10;
+}
+
+footer {
+  margin-top: 100px;
+  padding: 40px 48px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  color: white;
+}
+
+.footer-note {
+  font-size: 12px;
+  color: rgba(255,255,255,0.3);
+  text-align: center;
+  line-height: 1.6;
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-links a {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+/* ═══════════════════════════════════════════════
+   CONCEPT LABEL
+═══════════════════════════════════════════════ */
+.concept-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,165,0,0.1);
+  border: 1px solid rgba(255,165,0,0.3);
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: orange;
+}
+
+/* ═══════════════════════════════════════════════
+   ANIMATIONS / SCROLL
+═══════════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ═══════════════════════════════════════════════
+   NOTIFICATION TOAST
+═══════════════════════════════════════════════ */
+.toast {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  background: rgba(13,11,26,0.95);
+  border: 1px solid rgba(107,47,191,0.4);
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 9999;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  max-width: 320px;
+}
+
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.toast-icon { font-size: 24px; flex-shrink: 0; }
+.toast-text {}
+.toast-title { font-weight: 700; font-size: 14px; color: white; }
+.toast-sub { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+
+/* ═══════════════════════════════════════════════
+   MOBILE
+═══════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  #navbar { padding: 16px 20px; }
+
+  .hero-inner {
+    grid-template-columns: 1fr;
+    padding: 100px 20px 60px;
+    gap: 60px;
+  }
+
+  .hero-right { order: -1; }
+  .phone-container { width: 240px; }
+  .phone-frame { width: 240px; }
+  .phone-screen { min-height: 460px; }
+  .badge-left, .badge-right, .badge-top { display: none; }
+
+  .hero-stats { flex-wrap: wrap; gap: 20px; }
+
+  .comparison-grid { grid-template-columns: 1fr; }
+  .comp-divider { display: none; }
+
+  .strategy-pillars { grid-template-columns: 1fr 1fr; }
+
+  .trip-meter-layout { grid-template-columns: 1fr; gap: 40px; }
+  .trip-results { position: static; }
+
+  .phases-grid { grid-template-columns: 1fr; }
+
+  .share-card-section { grid-template-columns: 1fr; gap: 40px; }
+
+  .steps-timeline::before { left: 28px; }
+  .step-item, .step-item:nth-child(even) { flex-direction: column; gap: 20px; }
+  .step-node { position: static; transform: none; align-self: flex-start; }
+
+  .trust-grid { grid-template-columns: 1fr 1fr; }
+  .insights-grid { grid-template-columns: 1fr; }
+  .strategy-cards { grid-template-columns: 1fr; }
+
+  footer { flex-direction: column; text-align: center; }
+}
+
+/* ═══════════════════════════════════════════════
+   HORIZONTAL SCROLL SECTION (FEATURES)
+═══════════════════════════════════════════════ */
+#features {
+  padding: 100px 0;
+  background: var(--op-dark);
+  overflow: hidden;
+}
+
+.features-scroll-wrap {
+  overflow-x: auto;
+  padding: 20px 48px 40px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(107,47,191,0.4) transparent;
+  display: flex;
+  gap: 24px;
+  scroll-snap-type: x mandatory;
+}
+
+.feature-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24px;
+  padding: 36px 32px;
+  min-width: 300px;
+  scroll-snap-align: start;
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+
+.feature-card:hover {
+  border-color: rgba(107,47,191,0.4);
+  background: rgba(107,47,191,0.06);
+  transform: translateY(-6px);
+}
+
+.feature-emoji { font-size: 40px; margin-bottom: 20px; }
+.feature-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 12px;
+}
+.feature-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.7;
+}
+
+.feature-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(107,47,191,0.15);
+  border: 1px solid rgba(107,47,191,0.25);
+  border-radius: 50px;
+  padding: 4px 12px;
+  font-size: 11px;
+  color: #B87FFF;
+  font-weight: 600;
+  margin-top: 16px;
+}
+</style>
+</head>
+
+<body style="opacity:0;transition:opacity 0.6s ease">
+
+<!-- ═══════════════════════════════════════════
+   NAVBAR
+═══════════════════════════════════════════ -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <div class="nav-logo-icon">OP</div>
+    <div class="nav-logo-text">on<span>point</span></div>
+  </a>
+
+  <div class="nav-hamburger" id="nav-hamburger" onclick="toggleMobileNav()">
+    <span></span><span></span><span></span>
+  </div>
+
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#transformation">The Problem</a></li>
+    <li><a href="#strategy">Strategy</a></li>
+    <li><a href="#trip-meter">Trip Meter</a></li>
+    <li><a href="#campaign">Campaign</a></li>
+    <li><a href="#how-it-works">How It Works</a></li>
+    <li><a href="#hero" class="nav-cta">Start Journey ✈</a></li>
+  </ul>
+</nav>
+
+<div class="comp-badge">📊 ASCEND 3.0 — MARKUS</div>
+
+<!-- Toast notification -->
+<div class="toast" id="toast">
+  <div class="toast-icon">✈️</div>
+  <div class="toast-text">
+    <div class="toast-title">Points Earned!</div>
+    <div class="toast-sub">+240 Onpoints → Bali trip</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+   SECTION 1: HERO
+═══════════════════════════════════════════ -->
+<section id="hero">
+  <canvas id="particles-canvas"></canvas>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="grid-overlay"></div>
+
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-tag">
+        <span class="dot"></span>
+        TRIP IN PROGRESS
+      </div>
+
+      <h1 class="hero-h1">
+        <span class="line-1">YOUR NEXT TRIP</span>
+        <span class="line-2">STARTS WITH WHAT</span>
+        <span class="line-3">YOU ALREADY SPEND.</span>
+      </h1>
+
+      <p class="hero-sub">
+        Shop. Earn. Travel. <strong>Turn everyday purchases into possibilities</strong> for your next adventure — without changing how you spend.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="#trip-meter" class="btn-primary">
+          START YOUR JOURNEY <span class="arrow">→</span>
+        </a>
+        <a href="#how-it-works" class="btn-secondary">
+          EXPLORE HOW IT WORKS ↓
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat-item">
+          <div class="hero-stat-num">1<span class="unit">:1</span></div>
+          <div class="hero-stat-label">Point to Rupee Ratio</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-num">200<span class="unit">+</span></div>
+          <div class="hero-stat-label">Partner Brands</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-num">0<span class="unit">%</span></div>
+          <div class="hero-stat-label">Hidden Fees</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone Mockup -->
+    <div class="hero-right">
+      <div class="phone-container">
+        <div class="phone-glow-ring"></div>
+        <div class="phone-glow-ring-2"></div>
+
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="app-status-bar">
+              <span>9:41</span>
+              <span>●●● 5G 🔋</span>
+            </div>
+
+            <div class="app-header">
+              <div>
+                <div class="app-greeting">Good evening,</div>
+                <div class="app-name">Priya ✨</div>
+              </div>
+              <div class="app-avatar">P</div>
+            </div>
+
+            <div class="app-trip-card">
+              <div class="trip-dest">🗺️ NEXT DESTINATION</div>
+              <div class="trip-name">Bali, Indonesia 🌴</div>
+
+              <div class="trip-progress-label">
+                <span>Progress</span>
+                <span id="phone-pct">73%</span>
+              </div>
+              <div class="trip-progress-bar">
+                <div class="trip-progress-fill" id="phone-prog"></div>
+              </div>
+
+              <div class="trip-points-row">
+                <div>
+                  <div class="trip-pts-earned" id="phone-pts">14,620</div>
+                  <div class="trip-pts-label">onpoints earned</div>
+                </div>
+                <div class="trip-pct">73% there!</div>
+              </div>
+            </div>
+
+            <div class="app-quick">
+              <div class="quick-item">
+                <div class="quick-icon">🛍️</div>
+                <div class="quick-label">Shop</div>
+              </div>
+              <div class="quick-item">
+                <div class="quick-icon">🎁</div>
+                <div class="quick-label">Gift Cards</div>
+              </div>
+              <div class="quick-item">
+                <div class="quick-icon">✈️</div>
+                <div class="quick-label">Redeem</div>
+              </div>
+              <div class="quick-item">
+                <div class="quick-icon">📊</div>
+                <div class="quick-label">Progress</div>
+              </div>
+            </div>
+
+            <div class="app-section-title">Recent Activity</div>
+
+            <div class="activity-item">
+              <div class="activity-left">
+                <div class="activity-icon" style="background: rgba(255,107,53,0.15);">🛒</div>
+                <div class="activity-info">
+                  <div class="activity-name">Myntra</div>
+                  <div class="activity-date">Today, 6:12 PM</div>
+                </div>
+              </div>
+              <div class="activity-pts">+480 pts</div>
+            </div>
+
+            <div class="activity-item">
+              <div class="activity-left">
+                <div class="activity-icon" style="background: rgba(107,47,191,0.15);">🍕</div>
+                <div class="activity-info">
+                  <div class="activity-name">Swiggy</div>
+                  <div class="activity-date">Yesterday</div>
+                </div>
+              </div>
+              <div class="activity-pts">+120 pts</div>
+            </div>
+
+            <div class="activity-item">
+              <div class="activity-left">
+                <div class="activity-icon" style="background: rgba(0,200,100,0.15);">🎁</div>
+                <div class="activity-info">
+                  <div class="activity-name">Gift Card</div>
+                  <div class="activity-date">2 days ago</div>
+                </div>
+              </div>
+              <div class="activity-pts">+750 pts</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating badges -->
+        <div class="phone-badge badge-left">
+          <span class="pb-icon">🚀</span>
+          <div class="pb-text">
+            <div class="pb-label">Earning Rate</div>
+            <div class="pb-value">Double Dip</div>
+          </div>
+        </div>
+
+        <div class="phone-badge badge-right">
+          <span class="pb-icon">🎯</span>
+          <div class="pb-text">
+            <div class="pb-label">Goal Reached</div>
+            <div class="pb-value">73% → Bali</div>
+          </div>
+        </div>
+
+        <div class="phone-badge badge-top">
+          <span class="pb-icon">🔥</span>
+          <div class="pb-text">
+            <div class="pb-label">This Month</div>
+            <div class="pb-value">+1,840 pts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <span>SCROLL</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+   SECTION 2: BEFORE / AFTER
+═══════════════════════════════════════════ -->
+<section id="transformation">
+  <div class="container">
+    <div class="reveal" style="text-align:center; margin-bottom: 20px;">
+      <div class="section-label">📌 The Core Problem</div>
+      <div class="section-title">Rewards Are <span class="accent">Broken</span> for Gen Z</div>
+      <p class="section-sub" style="margin: 0 auto; text-align: center;">Traditional loyalty programmes create friction, confusion and abstract value. Here's how we change that.</p>
+    </div>
+
+    <div class="reveal" style="text-align: center; margin-bottom: 40px;">
+      <div class="transformation-toggle">
+        <button class="toggle-btn active" onclick="showComparison('before')">The Old Way</button>
+        <button class="toggle-btn" onclick="showComparison('after')">The Onpoint Way</button>
+      </div>
+    </div>
+
+    <div class="comparison-grid reveal">
+      <div class="comp-side comp-before">
+        <div class="comp-label-top label-before">❌ BEFORE: Traditional Rewards</div>
+        <div class="comp-heading" style="color: rgba(255,255,255,0.6);">Points go in,<br>motivation goes out</div>
+        <ul class="comp-items" id="before-list">
+          <li class="comp-item">
+            <div class="comp-item-icon icon-bad">🤔</div>
+            <div><strong>Abstract points with unclear value</strong> — "10,000 points? Great. Worth how much exactly?"</div>
+          </li>
+          <li class="comp-item">
+            <div class="comp-item-icon icon-bad">⌛</div>
+            <div><strong>Delayed gratification</strong> — Users spend months before seeing meaningful reward potential</div>
+          </li>
+          <li class="comp-item">
+            <div class="comp-item-icon icon-bad">🧩</div>
+            <div><strong>Fragmented experience</strong> — Separate apps for cashback, airline miles, hotel points</div>
+          </li>
+          <li class="comp-item">
+            <div class="comp-item-icon icon-bad">📉</div>
+            <div><strong>No visible progress</strong> — No sense of advancement toward a tangible goal</div>
+          </li>
+          <li class="comp-item">
+            <div class="comp-item-icon icon-bad">😴</div>
+            <div><strong>Low engagement</strong> — 73% of Gen Z abandon rewards programs within 3 months</div>
+          </li>
+          <li class="comp-item">
+            <div class="comp-item-icon icon-bad">🔒</div>
+            <div><strong>Payment method gatekeeping</strong> — Requires specific branded cards to earn rewards</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="comp-side comp-after">
+        <div class="comp-label-top label-after">✅ AFTER: ONPOINT + TRIP IN PROGRESS</div>
+        <div class="comp-heading">Every spend = visible<br><span style="color:#B87FFF;">progress to your trip</span></div>
+        <ul class="comp-items" id="after-list">
+          <li class="comp-item">
+            <div class="comp-item-icon icon-good">🎯</div>
+            <div><strong>Goal-anchored earning</strong> — Every rupee shows as % progress toward YOUR chosen destination</div>
+          </li>
+          <li class="comp-item">
+            <div class="comp-item-icon icon-good">⚡</div>
+            <div><strong>Instant gratification loops</strong> — Real-time progress updates after every qualifying purchase</div>
+          </li>
+          <li class="comp-item">
+            <div class="comp-item-icon icon-good">🔗</div>
+            <div><strong>One unified wallet</strong> — All brands, all categories, all loyalty programmes in one place</div>
+          </li>
+          <li class="comp-item">
+            <div class="comp-item-icon icon-good">📊</div>
+            <div><strong>Living progress meter</strong> — Visual trip countdown with ETA based on spending habits</div>
+          </li>
+          <li class="comp-item">
+            <div class="comp-item-icon icon-good">🌐</div>
+            <div><strong>Social sharing</strong> — Share your Trip Progress Card on Instagram, celebrate milestones</div>
+          </li>
+          <li class="comp-item">
+            <div class="comp-item-icon icon-good">💳</div>
+            <div><strong>Payment-agnostic</strong> — Earn via UPI, COD, any card — no branded card lock-in</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+   SECTION 3: STRATEGY
+═══════════════════════════════════════════ -->
+<section id="strategy">
+  <div class="container">
+    <div class="strategy-headline reveal">
+      <div class="section-label">💡 Strategic Positioning</div>
+      <div class="section-title">The <span class="purple">TRIP IN PROGRESS</span><br>Framework</div>
+      <p class="section-sub" style="margin: 0 auto; text-align:center; max-width: 640px;">
+        Instead of making users think about accumulating abstract reward points — make them think about the destination they want to visit. Every spend becomes a visible step closer.
+      </p>
+    </div>
+
+    <!-- Big campaign promise -->
+    <div class="reveal" style="text-align: center; margin: 60px 0;">
+      <div style="
+        display: inline-block;
+        background: linear-gradient(135deg, rgba(107,47,191,0.15), rgba(255,107,53,0.1));
+        border: 1px solid rgba(107,47,191,0.3);
+        border-radius: 24px;
+        padding: 48px 64px;
+        max-width: 700px;
+        position: relative;
+      ">
+        <div style="font-size:13px; letter-spacing:3px; text-transform:uppercase; color: rgba(255,255,255,0.4); margin-bottom: 16px;">CAMPAIGN PROMISE</div>
+        <div style="
+          font-family: 'Playfair Display', serif;
+          font-size: clamp(24px, 4vw, 36px);
+          font-style: italic;
+          font-weight: 700;
+          color: white;
+          line-height: 1.4;
+        ">"Your next trip starts with<br>what you already spend."</div>
+        <div style="margin-top: 24px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+          <span style="background: rgba(107,47,191,0.2); border: 1px solid rgba(107,47,191,0.3); border-radius: 50px; padding: 6px 16px; font-size:12px; color: #B87FFF;">#TripInProgress</span>
+          <span style="background: rgba(255,107,53,0.1); border: 1px solid rgba(255,107,53,0.3); border-radius: 50px; padding: 6px 16px; font-size:12px; color: var(--op-orange);">#SideQuestFund</span>
+          <span style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 50px; padding: 6px 16px; font-size:12px; color: rgba(255,255,255,0.5);">#EarnAsYouLive</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 pillars -->
+    <div class="strategy-pillars">
+
+      <div class="pillar-card reveal" style="transition-delay: 0s">
+        <div class="pillar-num">01</div>
+        <div class="pillar-icon-wrap" style="background: rgba(107,47,191,0.2);">🗺️</div>
+        <div class="pillar-title">Pick Your Next Trip</div>
+        <div class="pillar-desc">Users start by choosing their dream destination. This anchors all future spending to a tangible, emotionally resonant goal — not abstract points.</div>
+      </div>
+
+      <div class="pillar-card reveal" style="transition-delay: 0.1s">
+        <div class="pillar-num">02</div>
+        <div class="pillar-icon-wrap" style="background: rgba(255,107,53,0.15);">📊</div>
+        <div class="pillar-title">See Every Step Count</div>
+        <div class="pillar-desc">Every eligible purchase updates a visual progress meter in real-time. The trip gets closer with every swipe — Swiggy order, Myntra haul, Netflix gift card.</div>
+      </div>
+
+      <div class="pillar-card reveal" style="transition-delay: 0.2s">
+        <div class="pillar-num">03</div>
+        <div class="pillar-icon-wrap" style="background: rgba(255,215,0,0.15);">🔍</div>
+        <div class="pillar-title">Trust the Numbers</div>
+        <div class="pillar-desc">Clear earning eligibility, real conversion rates, transparent redemption conditions. No hidden gotchas. 1 Onpoint ≥ ₹1 value. Full clarity for a generation that hates fine print.</div>
+      </div>
+
+      <div class="pillar-card reveal" style="transition-delay: 0.3s">
+        <div class="pillar-num">04</div>
+        <div class="pillar-icon-wrap" style="background: rgba(0,200,100,0.15);">🌐</div>
+        <div class="pillar-title">Make Progress Social</div>
+        <div class="pillar-desc">Generate and share aesthetic "Trip Progress Cards" on Instagram stories and reels. Turn your savings journey into content. FOMO drives virality, virality drives acquisition.</div>
+      </div>
+
+    </div>
+
+    <!-- Flow diagram -->
+    <div class="reveal">
+      <div style="text-align: center; margin-bottom: 40px;">
+        <div class="section-label">The Onpoint Loop</div>
+      </div>
+      <div class="flow-track">
+        <div class="flow-node">
+          <div class="flow-circle" style="background: rgba(107,47,191,0.2); border: 2px solid rgba(107,47,191,0.4);">🛍️</div>
+          <div class="flow-label">Spend at<br>Partners</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">
+          <div class="flow-circle" style="background: rgba(255,107,53,0.15); border: 2px solid rgba(255,107,53,0.4);">⚡</div>
+          <div class="flow-label">Earn<br>Onpoints</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">
+          <div class="flow-circle" style="background: rgba(255,215,0,0.15); border: 2px solid rgba(255,215,0,0.3);">📊</div>
+          <div class="flow-label">Progress<br>Updates</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">
+          <div class="flow-circle" style="background: rgba(0,200,100,0.15); border: 2px solid rgba(0,200,100,0.3);">🌐</div>
+          <div class="flow-label">Share &<br>Celebrate</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">
+          <div class="flow-circle" style="background: linear-gradient(135deg, #6B2FBF, #FF6B35);">✈️</div>
+          <div class="flow-label">Book the<br>Trip!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+   SECTION 4: INTERACTIVE TRIP METER ⭐ STAR
+═══════════════════════════════════════════ -->
+<section id="trip-meter">
+  <div class="container">
+    <div class="reveal" style="text-align: center; margin-bottom: 60px;">
+      <div class="section-label">🎮 Interactive Demo</div>
+      <div class="section-title">Your <span class="accent">Trip Meter</span></div>
+      <p class="section-sub" style="margin: 0 auto; text-align:center;">
+        Select your dream destination, adjust your monthly spend, and watch your trip become a reality in real time.
+        <br><span class="concept-label" style="margin-top: 8px; display: inline-flex;">🚧 Proposed Concept</span>
+      </p>
+    </div>
+
+    <div class="trip-meter-layout">
+      <!-- Left: Inputs -->
+      <div>
+        <!-- Destination picker -->
+        <div class="dest-selector reveal-left">
+          <div class="dest-label">Choose Your Destination</div>
+          <div class="dest-cards">
+            <div class="dest-card selected" onclick="selectDest(this, 'Bali, Indonesia', '🌴', 20000)">
+              <div class="dest-check">✓</div>
+              <span class="dest-card-emoji">🌴</span>
+              <div class="dest-card-name">Bali</div>
+              <div class="dest-card-pts">~20,000 pts needed</div>
+            </div>
+            <div class="dest-card" onclick="selectDest(this, 'Thailand', '🏖️', 18000)">
+              <div class="dest-check">✓</div>
+              <span class="dest-card-emoji">🏖️</span>
+              <div class="dest-card-name">Thailand</div>
+              <div class="dest-card-pts">~18,000 pts needed</div>
+            </div>
+            <div class="dest-card" onclick="selectDest(this, 'Japan', '🗼', 35000)">
+              <div class="dest-check">✓</div>
+              <span class="dest-card-emoji">🗼</span>
+              <div class="dest-card-name">Japan</div>
+              <div class="dest-card-pts">~35,000 pts needed</div>
+            </div>
+            <div class="dest-card" onclick="selectDest(this, 'Europe', '🗺️', 55000)">
+              <div class="dest-check">✓</div>
+              <span class="dest-card-emoji">🗺️</span>
+              <div class="dest-card-name">Europe</div>
+              <div class="dest-card-pts">~55,000 pts needed</div>
+            </div>
+            <div class="dest-card" onclick="selectDest(this, 'Goa', '🌊', 5000)">
+              <div class="dest-check">✓</div>
+              <span class="dest-card-emoji">🌊</span>
+              <div class="dest-card-name">Goa</div>
+              <div class="dest-card-pts">~5,000 pts needed</div>
+            </div>
+            <div class="dest-card" onclick="selectDest(this, 'Dubai', '🌆', 28000)">
+              <div class="dest-check">✓</div>
+              <span class="dest-card-emoji">🌆</span>
+              <div class="dest-card-name">Dubai</div>
+              <div class="dest-card-pts">~28,000 pts needed</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Spend category -->
+        <div class="spending-section reveal-left">
+          <div class="dest-label" style="margin-top: 28px;">Your Spending Categories</div>
+          <div class="spending-categories">
+            <div class="spend-cat active" onclick="toggleCat(this, 'fashion', 0.04)">👗 Fashion</div>
+            <div class="spend-cat active" onclick="toggleCat(this, 'food', 0.025)">🍕 Food Delivery</div>
+            <div class="spend-cat active" onclick="toggleCat(this, 'grocery', 0.015)">🛒 Groceries</div>
+            <div class="spend-cat" onclick="toggleCat(this, 'travel', 0.05)">✈️ Travel</div>
+            <div class="spend-cat" onclick="toggleCat(this, 'entertainment', 0.03)">🎬 Entertainment</div>
+            <div class="spend-cat" onclick="toggleCat(this, 'gifts', 0.06)">🎁 Gift Cards</div>
+          </div>
+
+          <!-- Slider -->
+          <div class="spend-slider-wrap">
+            <div class="spend-amount-display">
+              <div>
+                <div style="font-size:12px; color:rgba(255,255,255,0.4); margin-bottom:4px; letter-spacing:0.5px;">MONTHLY SPEND</div>
+                <div class="spend-amount"><span class="spend-currency">₹</span><span id="spend-display">15,000</span></div>
+              </div>
+              <div class="spend-unit">per month</div>
+            </div>
+
+            <input type="range" class="range-input" id="spend-slider"
+              min="2000" max="100000" step="1000" value="15000"
+              oninput="updateTripMeter()">
+
+            <div class="range-marks">
+              <span>₹2K</span>
+              <span>₹25K</span>
+              <span>₹50K</span>
+              <span>₹1L</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Results -->
+      <div class="trip-results">
+        <div class="results-card reveal-right">
+          <div class="results-destination">
+            <div class="results-dest-emoji" id="results-emoji">🌴</div>
+            <div>
+              <div class="results-dest-name" id="results-dest">Bali, Indonesia</div>
+              <div class="results-dest-sub">Trip goal: <span id="results-goal">20,000</span> Onpoints</div>
+            </div>
+          </div>
+
+          <!-- Progress ring -->
+          <div class="progress-ring-wrap">
+            <svg class="progress-ring-svg" viewBox="0 0 180 180">
+              <defs>
+                <linearGradient id="ring-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" style="stop-color:#6B2FBF"/>
+                  <stop offset="50%" style="stop-color:#FF6B35"/>
+                  <stop offset="100%" style="stop-color:#FFD700"/>
+                </linearGradient>
+              </defs>
+              <circle class="progress-ring-bg" cx="90" cy="90" r="80"/>
+              <circle class="progress-ring-fill" id="ring-fill" cx="90" cy="90" r="80"/>
+            </svg>
+            <div class="ring-center">
+              <div class="ring-pct" id="ring-pct">73%</div>
+              <div class="ring-label">COMPLETE</div>
+            </div>
+          </div>
+
+          <!-- Stats -->
+          <div class="results-stats">
+            <div class="stat-box">
+              <div class="stat-box-label">Points Earned/Month</div>
+              <div class="stat-box-value purple" id="pts-per-month">480</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-box-label">Points Still Needed</div>
+              <div class="stat-box-value orange" id="pts-needed">5,380</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-box-label">Months to Goal</div>
+              <div class="stat-box-value" id="months-to-goal">11</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-box-label">1 Onpoint =</div>
+              <div class="stat-box-value green">₹1.00</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="timeline-bar reveal-right" style="transition-delay:0.2s">
+          <div class="timeline-title">Earning Breakdown</div>
+          <div class="timeline-items" id="timeline-items">
+            <div class="tl-item">
+              <div class="tl-left"><div class="tl-dot" style="background:#FF6B35"></div>Fashion (Myntra/Ajio)</div>
+              <div class="tl-value" id="tl-fashion">+192 pts</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-left"><div class="tl-dot" style="background:#B87FFF"></div>Food Delivery</div>
+              <div class="tl-value" id="tl-food">+90 pts</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-left"><div class="tl-dot" style="background:#4ade80"></div>Groceries</div>
+              <div class="tl-value" id="tl-grocery">+68 pts</div>
+            </div>
+            <div class="tl-item" id="tl-other-row">
+              <div class="tl-left"><div class="tl-dot" style="background:#FFD700"></div>Other</div>
+              <div class="tl-value" id="tl-other">+130 pts</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 20px; text-align: center;">
+          <a href="#campaign" class="btn-primary" style="font-size:14px; padding: 14px 28px;">
+            Share My Progress 📲
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+   SECTION 5: CAMPAIGN
+═══════════════════════════════════════════ -->
+<section id="campaign">
+  <div class="container">
+    <div class="campaign-hero reveal">
+      <div class="section-label" style="margin: 0 auto 20px; display: table;">🔥 Campaign Strategy</div>
+      <div class="campaign-tagline">SIDE QUEST FUND</div>
+      <p class="campaign-sub">
+        A phased activation campaign to make Onpoint the app Gen Z reaches for before they even start planning a trip.
+      </p>
+    </div>
+
+    <div class="phases-grid">
+      <div class="phase-card reveal" style="transition-delay: 0s">
+        <div class="phase-num-bg">1</div>
+        <div class="phase-icon">🌱</div>
+        <div class="phase-title">Phase 1: SPARK</div>
+        <div class="phase-sub">Weeks 1–4: Awareness</div>
+        <div class="phase-desc">
+          Launch the "Trip In Progress" concept through UGC-first content. Micro-influencers (travel, lifestyle, college) share their Trip Progress Cards. The hashtag #SideQuestFund seeds across Instagram & YouTube Shorts. Reels showing the moment a trip gets booked using only Onpoints.
+        </div>
+        <div style="margin-top: 20px; display: flex; gap: 8px; flex-wrap: wrap;">
+          <span class="step-tag">Instagram Reels</span>
+          <span class="step-tag">YouTube Shorts</span>
+          <span class="step-tag">Micro-Influencers</span>
+        </div>
+      </div>
+
+      <div class="phase-card reveal" style="transition-delay: 0.1s">
+        <div class="phase-num-bg">2</div>
+        <div class="phase-icon">🚀</div>
+        <div class="phase-title">Phase 2: AMPLIFY</div>
+        <div class="phase-sub">Weeks 5–10: Engagement</div>
+        <div class="phase-desc">
+          Partner activations with brands like Myntra, Swiggy, Blinkit — "Earn 2X this weekend" push notifications create urgency. Campus ambassador programme at top universities. Limited-edition "Trip Drop" challenges where users earn bonus points for specific spend combos.
+        </div>
+        <div style="margin-top: 20px; display: flex; gap: 8px; flex-wrap: wrap;">
+          <span class="step-tag">Brand Partnerships</span>
+          <span class="step-tag">Campus Ambassadors</span>
+          <span class="step-tag">Push Challenges</span>
+        </div>
+      </div>
+
+      <div class="phase-card reveal" style="transition-delay: 0.2s">
+        <div class="phase-num-bg">3</div>
+        <div class="phase-icon">🏆</div>
+        <div class="phase-title">Phase 3: CONVERT</div>
+        <div class="phase-sub">Weeks 11–16: Retention</div>
+        <div class="phase-desc">
+          "Trip Booked" celebration stories — users who redeem get a bespoke shareable card. Referral programme: "Fly your friend too" — share progress cards and earn bonus when your friend signs up. Seasonal campaigns tied to Diwali, New Year, college break travel peaks.
+        </div>
+        <div style="margin-top: 20px; display: flex; gap: 8px; flex-wrap: wrap;">
+          <span class="step-tag">Referral Engine</span>
+          <span class="step-tag">Celebration Stories</span>
+          <span class="step-tag">Seasonal Hooks</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Social share card creator -->
+    <div class="share-card-section reveal">
+      <div class="share-card-preview">
+        <div class="concept-label" style="margin-bottom: 16px;">🚧 Proposed Feature</div>
+        <div class="share-card" id="share-card-preview">
+          <div class="sc-logo">
+            <div class="sc-logo-box">OP</div>
+            <div class="sc-logo-name">onpoint</div>
+          </div>
+          <div class="sc-user" id="sc-user-display">Priya's Trip Progress</div>
+          <div class="sc-dest" id="sc-dest-display">Bali, Indonesia 🌴<br>is happening.</div>
+          <div class="sc-pct" id="sc-pct-display">73% funded through everyday spending</div>
+          <div class="sc-bar">
+            <div class="sc-bar-fill" id="sc-bar-fill" style="width: 73%"></div>
+          </div>
+          <div class="sc-hashtag">#TripInProgress #SideQuestFund #EarnAsYouLive</div>
+        </div>
+      </div>
+
+      <div class="share-customizer">
+        <div class="customizer-title">Create Your Progress Card</div>
+        <div class="customizer-desc">
+          Generate a shareable, aesthetic "Trip Progress Card" to post on your stories. Watch the preview update live as you customise.
+          <br><br><span class="concept-label">🚧 Proposed Feature — Not Yet Live in App</span>
+        </div>
+
+        <div class="customizer-field">
+          <label class="field-label">Your Name</label>
+          <input type="text" class="field-input" id="card-name" placeholder="e.g. Priya" oninput="updateCard()">
+        </div>
+
+        <div class="customizer-field">
+          <label class="field-label">Your Destination</label>
+          <div class="dest-picker">
+            <button class="dest-pick-btn active" onclick="pickCardDest(this, 'Bali, Indonesia 🌴')">🌴 Bali</button>
+            <button class="dest-pick-btn" onclick="pickCardDest(this, 'Japan 🗼')">🗼 Japan</button>
+            <button class="dest-pick-btn" onclick="pickCardDest(this, 'Thailand 🏖️')">🏖️ Thailand</button>
+            <button class="dest-pick-btn" onclick="pickCardDest(this, 'Europe 🗺️')">🗺️ Europe</button>
+            <button class="dest-pick-btn" onclick="pickCardDest(this, 'Dubai 🌆')">🌆 Dubai</button>
+            <button class="dest-pick-btn" onclick="pickCardDest(this, 'Goa 🌊')">🌊 Goa</button>
+          </div>
+        </div>
+
+        <div class="customizer-field">
+          <label class="field-label">Progress: <span id="card-pct-label">73%</span></label>
+          <input type="range" class="range-input" id="card-progress" min="5" max="99" value="73" oninput="updateCardProgress()">
+        </div>
+
+        <button class="generate-btn" onclick="generateCard()">
+          ✨ Generate My Progress Card
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+   FEATURES CAROUSEL
+═══════════════════════════════════════════ -->
+<section id="features">
+  <div class="container">
+    <div class="reveal" style="margin-bottom: 40px;">
+      <div class="section-label">📱 Product Vision</div>
+      <div class="section-title">Proposed App <span class="accent">Enhancements</span></div>
+      <p class="section-sub">The features that will make Onpoint the app Gen Z can't stop talking about.</p>
+    </div>
+  </div>
+
+  <div class="features-scroll-wrap">
+    <div class="feature-card">
+      <div class="feature-emoji">🗺️</div>
+      <div class="feature-title">Trip Goal Setter</div>
+      <div class="feature-desc">Choose from curated destinations or enter your own. The app auto-calculates required points based on average airline miles and hotel redemptions.</div>
+      <div class="feature-badge">✈️ Core Feature</div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-emoji">📊</div>
+      <div class="feature-title">Live Progress Meter</div>
+      <div class="feature-desc">A beautiful, animated progress bar that updates after every qualifying purchase. See exactly how close you are to your next adventure in real-time.</div>
+      <div class="feature-badge">⚡ Real-time</div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-emoji">📅</div>
+      <div class="feature-title">Trip ETA Calculator</div>
+      <div class="feature-desc">Based on your average monthly spending patterns, Onpoint predicts when you'll have enough points for your trip — giving you a date to look forward to.</div>
+      <div class="feature-badge">🤖 AI-Powered</div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-emoji">🌐</div>
+      <div class="feature-title">Progress Card Share</div>
+      <div class="feature-desc">Generate aesthetic, branded "Trip Progress Cards" optimised for Instagram Stories and Reels. Every share is organic growth for Onpoint.</div>
+      <div class="feature-badge">🚀 Viral Engine</div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-emoji">🔔</div>
+      <div class="feature-title">Smart Spending Nudges</div>
+      <div class="feature-desc">"You're 2 Swiggy orders away from your next milestone!" — contextual push notifications that make spending feel purposeful, not impulsive.</div>
+      <div class="feature-badge">🧠 Smart Alerts</div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-emoji">🎯</div>
+      <div class="feature-title">Milestone Celebrations</div>
+      <div class="feature-desc">Hit 25%, 50%, 75%? The app throws a mini celebration — confetti animation, a congratulations card ready to share, bonus earn opportunity.</div>
+      <div class="feature-badge">🎉 Delight</div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-emoji">👥</div>
+      <div class="feature-title">Group Trip Mode</div>
+      <div class="feature-desc">Planning a group trip? See all your friends' progress toward the same destination — gamified social motivation to reach the goal together.</div>
+      <div class="feature-badge">🏆 Social</div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-emoji">🔁</div>
+      <div class="feature-title">Double-Dip Radar</div>
+      <div class="feature-desc">AI-powered suggestions showing which of your planned spends can earn 2X — your credit card rewards PLUS Onpoints simultaneously.</div>
+      <div class="feature-badge">💰 Maximize</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+   SECTION 6: HOW IT WORKS
+═══════════════════════════════════════════ -->
+<section id="how-it-works">
+  <div class="container">
+    <div class="reveal" style="text-align: center; margin-bottom: 20px;">
+      <div class="section-label">📋 The Journey</div>
+      <div class="section-title">How <span class="purple">Onpoint</span> Works</div>
+      <p class="section-sub" style="margin: 0 auto; text-align:center;">From your first rupee spent to your first boarding pass. Here's exactly what the experience looks like.</p>
+    </div>
+
+    <div class="steps-timeline">
+      <!-- Step 1 -->
+      <div class="step-item">
+        <div class="step-content reveal-left">
+          <div class="step-num">STEP 01</div>
+          <div class="step-title">Set Your Dream Destination</div>
+          <div class="step-desc">
+            Open Onpoint, tap "Pick My Next Trip," and choose where you want to go — Bali, Bangkok, Barcelona. The app instantly calculates how many Onpoints you need and translates that into real ₹ value. No jargon.
+          </div>
+          <div class="step-tags">
+            <span class="step-tag">30 seconds to set up</span>
+            <span class="step-tag">100+ destinations</span>
+            <span class="step-tag">Instant ₹ translation</span>
+          </div>
+        </div>
+        <div class="step-node">🗺️</div>
+        <div class="step-spacer reveal-right"></div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step-item">
+        <div class="step-spacer reveal-left"></div>
+        <div class="step-node">🛍️</div>
+        <div class="step-content reveal-right">
+          <div class="step-num">STEP 02</div>
+          <div class="step-title">Shop at 200+ Partner Brands</div>
+          <div class="step-desc">
+            Shop through the Onpoint app or browser extension at Myntra, Ajio, Swiggy, Blinkit, Amazon, and 200+ more. Buy gift cards for instant, guaranteed point earning. Pay with anything — UPI, card, COD. No restrictions.
+          </div>
+          <div class="step-tags">
+            <span class="step-tag">Payment-agnostic</span>
+            <span class="step-tag">Browser extension</span>
+            <span class="step-tag">Gift card shortcut</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step-item">
+        <div class="step-content reveal-left">
+          <div class="step-num">STEP 03</div>
+          <div class="step-title">Watch Your Trip Meter Move</div>
+          <div class="step-desc">
+            After every qualifying purchase, your Trip Meter updates in real time. See the progress ring grow. Get a notification: "🎉 +480 Onpoints from Myntra — you're now 73% toward Bali!" The trip feels reachable. That feeling keeps you coming back.
+          </div>
+          <div class="step-tags">
+            <span class="step-tag">Real-time updates</span>
+            <span class="step-tag">Visual progress ring</span>
+            <span class="step-tag">Milestone alerts</span>
+          </div>
+        </div>
+        <div class="step-node">📊</div>
+        <div class="step-spacer reveal-right"></div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="step-item">
+        <div class="step-spacer reveal-left"></div>
+        <div class="step-node">🌐</div>
+        <div class="step-content reveal-right">
+          <div class="step-num">STEP 04</div>
+          <div class="step-title">Share Your Progress</div>
+          <div class="step-desc">
+            Hit 50%? Celebrate! Generate your "Trip Progress Card" — an aesthetic, branded graphic that's Instagram-ready. Post it, flex it, make your friends ask "wait how are you funding a trip through Myntra orders?!" — virality built in.
+          </div>
+          <div class="step-tags">
+            <span class="step-tag">Instagram-ready cards</span>
+            <span class="step-tag">#TripInProgress</span>
+            <span class="step-tag">Organic growth</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="step-item">
+        <div class="step-content reveal-left">
+          <div class="step-num">STEP 05</div>
+          <div class="step-title">Redeem & Book. Fly.</div>
+          <div class="step-desc">
+            Convert your Onpoints directly to Air India Maharaja Club miles, IndiGo BluChip, Taj Hotel rewards, or Uber credits. Transparent conversion, guaranteed minimum value of ₹1 per point. Book your trip. The app gives you a "TRIP BOOKED! 🎉" card to share.
+          </div>
+          <div class="step-tags">
+            <span class="step-tag">Air India / IndiGo / Taj</span>
+            <span class="step-tag">1 pt = ₹1 minimum</span>
+            <span class="step-tag">Zero hidden fees</span>
+          </div>
+        </div>
+        <div class="step-node">✈️</div>
+        <div class="step-spacer reveal-right"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+   SECTION 7: TRUST
+═══════════════════════════════════════════ -->
+<section id="trust">
+  <div class="container">
+    <div class="reveal" style="text-align: center;">
+      <div class="section-label">🔐 Why Trust Onpoint</div>
+      <div class="section-title">Built for <span class="accent">Clarity</span> & Confidence</div>
+      <p class="section-sub" style="margin: 0 auto; text-align: center;">Gen Z doesn't forgive fine print. Onpoint is designed to be the most transparent rewards platform in India.</p>
+    </div>
+
+    <div class="trust-grid">
+      <div class="trust-card reveal" style="transition-delay: 0s">
+        <div class="trust-icon">💎</div>
+        <div class="trust-num">1<span class="unit">:1</span></div>
+        <div class="trust-label">Minimum 1 Onpoint = ₹1 value across all major redemptions. No devaluations, no tricks.</div>
+      </div>
+      <div class="trust-card reveal" style="transition-delay: 0.1s">
+        <div class="trust-icon">✅</div>
+        <div class="trust-num">200<span class="unit">+</span></div>
+        <div class="trust-label">Partner brands spanning fashion, food, travel, groceries and entertainment.</div>
+      </div>
+      <div class="trust-card reveal" style="transition-delay: 0.2s">
+        <div class="trust-icon">🔒</div>
+        <div class="trust-num">0<span class="unit"> fees</span></div>
+        <div class="trust-label">No joining fees, no redemption charges, no hidden maintenance costs. Ever.</div>
+      </div>
+      <div class="trust-card reveal" style="transition-delay: 0.3s">
+        <div class="trust-icon">📱</div>
+        <div class="trust-num">Any<span class="unit"> pay</span></div>
+        <div class="trust-label">Earn with UPI, cash on delivery, debit or any credit card. No branded card lock-in required.</div>
+      </div>
+      <div class="trust-card reveal" style="transition-delay: 0.4s">
+        <div class="trust-icon">✈️</div>
+        <div class="trust-num">4<span class="unit">+</span></div>
+        <div class="trust-label">Airline loyalty programme integrations: Air India, IndiGo, Vietnam Airlines, and growing.</div>
+      </div>
+      <div class="trust-card reveal" style="transition-delay: 0.5s">
+        <div class="trust-icon">📊</div>
+        <div class="trust-num">Live<span class="unit"> data</span></div>
+        <div class="trust-label">Every point, every purchase, every conversion — tracked in real time, always visible to you.</div>
+      </div>
+    </div>
+
+    <!-- Partners -->
+    <div class="partners-section reveal">
+      <div class="partners-label">Earn Points When You Shop At</div>
+      <div class="partners-marquee">
+        <div class="partners-track">
+          <div class="partner-item"><span>🛍️</span> Myntra</div>
+          <div class="partner-item"><span>🛒</span> Ajio</div>
+          <div class="partner-item"><span>🍕</span> Swiggy</div>
+          <div class="partner-item"><span>🛒</span> Blinkit</div>
+          <div class="partner-item"><span>📦</span> Amazon</div>
+          <div class="partner-item"><span>🛒</span> Flipkart</div>
+          <div class="partner-item"><span>🏨</span> Taj Hotels</div>
+          <div class="partner-item"><span>🚗</span> Uber</div>
+          <div class="partner-item"><span>✈️</span> Air India</div>
+          <div class="partner-item"><span>✈️</span> IndiGo</div>
+          <div class="partner-item"><span>🏨</span> ITC Hotels</div>
+          <div class="partner-item"><span>🎬</span> BookMyShow</div>
+          <!-- duplicate for seamless loop -->
+          <div class="partner-item"><span>🛍️</span> Myntra</div>
+          <div class="partner-item"><span>🛒</span> Ajio</div>
+          <div class="partner-item"><span>🍕</span> Swiggy</div>
+          <div class="partner-item"><span>🛒</span> Blinkit</div>
+          <div class="partner-item"><span>📦</span> Amazon</div>
+          <div class="partner-item"><span>🛒</span> Flipkart</div>
+          <div class="partner-item"><span>🏨</span> Taj Hotels</div>
+          <div class="partner-item"><span>🚗</span> Uber</div>
+          <div class="partner-item"><span>✈️</span> Air India</div>
+          <div class="partner-item"><span>✈️</span> IndiGo</div>
+          <div class="partner-item"><span>🏨</span> ITC Hotels</div>
+          <div class="partner-item"><span>🎬</span> BookMyShow</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+   SECTION 8: GEN Z INSIGHTS
+═══════════════════════════════════════════ -->
+<section id="insights">
+  <div class="container">
+    <div class="reveal" style="text-align: center;">
+      <div class="section-label">📈 Market Intelligence</div>
+      <div class="section-title">Why Gen Z, Why <span class="accent">Now</span></div>
+      <p class="section-sub" style="margin: 0 auto; text-align:center;">The data behind why the "Trip In Progress" strategy is the right move for Onpoint at this exact moment.</p>
+    </div>
+
+    <div class="insights-grid">
+      <div class="insight-card reveal-left">
+        <div class="insight-quote">"</div>
+        <div class="insight-stat"><span class="pct">78%</span></div>
+        <div class="insight-text">of Gen Z Indians say they actively plan travel as a priority — but 65% feel they "can't afford it." The gap is perception, not reality.</div>
+        <div class="insight-source">Source: Gen Z Travel Report India, 2024</div>
+      </div>
+
+      <div class="insight-card reveal-right">
+        <div class="insight-quote">"</div>
+        <div class="insight-stat"><span class="pct">73%</span></div>
+        <div class="insight-text">of Gen Z abandon traditional loyalty programmes within 3 months — primarily because they don't feel "real progress" toward anything meaningful.</div>
+        <div class="insight-source">Source: Arrivia Loyalty Trends Report</div>
+      </div>
+
+      <div class="insight-card reveal-left">
+        <div class="insight-bars">
+          <div style="font-family: 'Space Grotesk'; font-size: 20px; font-weight: 700; margin-bottom: 20px;">What motivates Gen Z to earn rewards?</div>
+          <div class="bar-row">
+            <div class="bar-label">Travel Goals</div>
+            <div class="bar-track"><div class="bar-fill reveal-bar" style="--bar-w: 84%"></div></div>
+            <div class="bar-pct">84%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Cashback ₹</div>
+            <div class="bar-track"><div class="bar-fill reveal-bar" style="--bar-w: 71%; background: linear-gradient(135deg, #FF6B35, #FFD700);"></div></div>
+            <div class="bar-pct">71%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Social Share</div>
+            <div class="bar-track"><div class="bar-fill reveal-bar" style="--bar-w: 58%; background: linear-gradient(135deg, #4ade80, #22d3ee);"></div></div>
+            <div class="bar-pct">58%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Discounts</div>
+            <div class="bar-track"><div class="bar-fill reveal-bar" style="--bar-w: 52%; background: linear-gradient(135deg, #f59e0b, #ef4444);"></div></div>
+            <div class="bar-pct">52%</div>
+          </div>
+        </div>
+        <div class="insight-source">Source: Synthetic data modeled on Gen Z motivation research</div>
+      </div>
+
+      <div class="insight-card reveal-right">
+        <div class="insight-quote">"</div>
+        <div class="insight-stat">₹<span class="pct">1.2L</span></div>
+        <div class="insight-text">Average annual discretionary spend by Indian Gen Z (18–28) across e-commerce, food delivery and entertainment. All of this is currently un-monetised reward potential.</div>
+        <div class="insight-source">Source: RedSeer Digital Consumer Report</div>
+        <div style="margin-top: 20px; padding: 16px; background: rgba(107,47,191,0.1); border: 1px solid rgba(107,47,191,0.2); border-radius: 12px;">
+          <div style="font-size: 13px; color: rgba(255,255,255,0.65);">At Onpoint's average earning rate, that's <strong style="color: #B87FFF;">~4,800 Onpoints/year</strong> per user — enough for a domestic trip contribution every year.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+   SECTION 9: STRATEGY SUMMARY
+═══════════════════════════════════════════ -->
+<section id="summary">
+  <div class="container">
+    <div class="reveal" style="text-align: center;">
+      <div class="section-label">📋 For The Judges</div>
+      <div class="section-title">Our <span class="purple">Strategic Framework</span></div>
+      <p class="section-sub" style="margin: 0 auto; text-align:center;">How Trip In Progress addresses Onpoint's four core challenges: Desirability, Clarity, Credibility, and Distinctiveness.</p>
+    </div>
+
+    <div class="strategy-cards">
+      <div class="strategy-card reveal" style="border-top: 3px solid var(--op-orange);">
+        <div class="sc-icon-wrap" style="background: rgba(255,107,53,0.15);">🔥</div>
+        <div class="sc-title">Desirability</div>
+        <div class="sc-desc">Making Onpoint emotionally resonant for Gen Z by anchoring rewards to aspirational travel experiences, not abstract currency.</div>
+        <ul class="sc-bullets">
+          <li class="sc-bullet">Trip-first interface design — destination before points</li>
+          <li class="sc-bullet">Progress-based dopamine loops (milestone celebrations)</li>
+          <li class="sc-bullet">Social sharing as a built-in feature, not an afterthought</li>
+          <li class="sc-bullet">Campaign aesthetics aligned with Gen Z's visual language</li>
+        </ul>
+      </div>
+
+      <div class="strategy-card reveal" style="border-top: 3px solid #B87FFF; transition-delay: 0.1s;">
+        <div class="sc-icon-wrap" style="background: rgba(107,47,191,0.2);">🔍</div>
+        <div class="sc-title">Clarity</div>
+        <div class="sc-desc">Eliminating confusion around point value, earning rules, and redemption with radical transparency and plain-language UX.</div>
+        <ul class="sc-bullets">
+          <li class="sc-bullet">1 Onpoint = ₹1 — displayed prominently everywhere</li>
+          <li class="sc-bullet">Trip Meter translates points into days-to-goal, not abstract numbers</li>
+          <li class="sc-bullet">Partner eligibility displayed before purchase, not after</li>
+          <li class="sc-bullet">Spending breakdown shows exactly where points came from</li>
+        </ul>
+      </div>
+
+      <div class="strategy-card reveal" style="border-top: 3px solid #4ade80; transition-delay: 0.2s;">
+        <div class="sc-icon-wrap" style="background: rgba(0,200,100,0.15);">🏆</div>
+        <div class="sc-title">Credibility</div>
+        <div class="sc-desc">Building trust through real airline and hotel integrations, transparent conversion rates, and zero fee policy.</div>
+        <ul class="sc-bullets">
+          <li class="sc-bullet">Named airline partners: Air India, IndiGo, Vietnam Airlines</li>
+          <li class="sc-bullet">Hotel brands: Taj, ITC — premium associations, premium trust</li>
+          <li class="sc-bullet">Real-time transaction confirmation and point allocation</li>
+          <li class="sc-bullet">No expiry, no minimum redemption thresholds</li>
+        </ul>
+      </div>
+
+      <div class="strategy-card reveal" style="border-top: 3px solid #FFD700; transition-delay: 0.3s;">
+        <div class="sc-icon-wrap" style="background: rgba(255,215,0,0.15);">⚡</div>
+        <div class="sc-title">Distinctiveness</div>
+        <div class="sc-desc">Carving a unique positioning as "the travel goal app" — not another cashback or points aggregator — through campaign and product.</div>
+        <ul class="sc-bullets">
+          <li class="sc-bullet">"Trip In Progress" — no other platform owns this narrative space</li>
+          <li class="sc-bullet">Progress Card social mechanic creates organic differentiation</li>
+          <li class="sc-bullet">Double-dip positioning — uniquely stack with any existing card</li>
+          <li class="sc-bullet">Side Quest Fund campaign: distinctively Gen Z in tone and format</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+   FINAL CTA
+═══════════════════════════════════════════ -->
+<section id="final-cta">
+  <div class="cta-glow"></div>
+  <div class="container" style="position:relative; z-index:10;">
+    <div class="reveal">
+      <div class="section-label" style="margin: 0 auto 24px; display: table;">✈️ The Mission</div>
+      <div class="cta-headline">
+        Every rupee.<br>
+        Every purchase.<br>
+        <span class="accent">Every trip closer.</span>
+      </div>
+      <p class="cta-sub">
+        Onpoint isn't just a rewards app. It's the first app that makes your everyday life feel like a countdown to your next adventure.
+      </p>
+
+      <div class="cta-buttons">
+        <a href="https://play.google.com/store/apps/details?id=com.app.onpointapp" target="_blank" class="btn-primary">
+          Download Onpoint ✈️
+        </a>
+        <a href="#trip-meter" class="btn-secondary">
+          Try the Trip Meter 📊
+        </a>
+      </div>
+    </div>
+
+    <!-- Big text -->
+    <div style="margin-top: 100px; text-align: center; overflow: hidden;">
+      <div style="
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: clamp(60px, 12vw, 160px);
+        font-weight: 900;
+        letter-spacing: -4px;
+        color: rgba(255,255,255,0.03);
+        line-height: 1;
+        white-space: nowrap;
+        pointer-events: none;
+      ">TRIP IN PROGRESS</div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">
+      <div class="nav-logo-icon">OP</div>
+      <span>onpoint</span>
+    </div>
+
+    <div class="footer-note">
+      <strong style="color: rgba(255,255,255,0.6);">ASCEND 3.0 — MARKUS, Hansraj College</strong><br>
+      This website is a case competition submission presenting proposed strategic enhancements to the Onpoint platform.<br>
+      All proposed features are conceptual and not necessarily available in the live application.
+    </div>
+
+    <div class="footer-links">
+      <a href="#hero">Home</a>
+      <a href="#strategy">Strategy</a>
+      <a href="#trip-meter">Trip Meter</a>
+      <a href="https://play.google.com/store/apps/details?id=com.app.onpointapp" target="_blank">App Store →</a>
+    </div>
+  </footer>
+</section>
+
+<!-- ═══════════════════════════════════════════
+   JAVASCRIPT
+═══════════════════════════════════════════ -->
+<script>
+// ━━━━━━━━━━━━━━━━━━━━
+// NAVBAR SCROLL
+// ━━━━━━━━━━━━━━━━━━━━
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ━━━━━━━━━━━━━━━━━━━━
+// SCROLL REVEAL
+// ━━━━━━━━━━━━━━━━━━━━
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      const delay = entry.target.style.transitionDelay || '0s';
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, parseFloat(delay) * 1000);
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+revealEls.forEach(el => revealObserver.observe(el));
+
+// ━━━━━━━━━━━━━━━━━━━━
+// BAR CHART ANIMATION
+// ━━━━━━━━━━━━━━━━━━━━
+const barObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const fills = entry.target.querySelectorAll('.bar-fill');
+      fills.forEach(fill => {
+        const w = fill.style.getPropertyValue('--bar-w');
+        setTimeout(() => { fill.style.width = w; }, 300);
+      });
+      barObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.insight-card').forEach(card => barObserver.observe(card));
+
+// ━━━━━━━━━━━━━━━━━━━━
+// PHONE PROGRESS ANIMATION
+// ━━━━━━━━━━━━━━━━━━━━
+setTimeout(() => {
+  document.getElementById('phone-prog').style.width = '73%';
+}, 800);
+
+// ━━━━━━━━━━━━━━━━━━━━
+// PARTICLES CANVAS
+// ━━━━━━━━━━━━━━━━━━━━
+const canvas = document.getElementById('particles-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+class Particle {
+  constructor() {
+    this.reset();
+  }
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 2 + 0.5;
+    this.speedX = (Math.random() - 0.5) * 0.3;
+    this.speedY = (Math.random() - 0.5) * 0.3;
+    this.opacity = Math.random() * 0.5 + 0.1;
+    this.color = Math.random() > 0.5 ? '107,47,191' : '255,107,53';
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+      this.reset();
+    }
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${this.color},${this.opacity})`;
+    ctx.fill();
+  }
+}
+
+for (let i = 0; i < 120; i++) particles.push(new Particle());
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+// ━━━━━━━━━━━━━━━━━━━━
+// TOAST NOTIFICATION
+// ━━━━━━━━━━━━━━━━━━━━
+function showToast(title, sub, icon = '✈️') {
+  const toast = document.getElementById('toast');
+  toast.querySelector('.toast-title').textContent = title;
+  toast.querySelector('.toast-sub').textContent = sub;
+  toast.querySelector('.toast-icon').textContent = icon;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3500);
+}
+
+// Auto show toasts
+setTimeout(() => showToast('Points Earned!', '+480 Onpoints from Myntra → Bali', '🛍️'), 2500);
+setTimeout(() => showToast('73% to Bali!', 'You\'re almost there! Keep going 🌴', '🎯'), 8000);
+setTimeout(() => showToast('Tip: Double Dip!', 'Pay with HDFC card on Swiggy = 2X points', '💡'), 15000);
+
+// ━━━━━━━━━━━━━━━━━━━━
+// TRIP METER LOGIC
+// ━━━━━━━━━━━━━━━━━━━━
+let selectedDestData = { name: 'Bali, Indonesia', emoji: '🌴', goal: 20000 };
+let currentEarnedBase = 14620;
+let spendCategories = {
+  fashion: { rate: 0.04, active: true },
+  food: { rate: 0.025, active: true },
+  grocery: { rate: 0.015, active: true },
+  travel: { rate: 0.05, active: false },
+  entertainment: { rate: 0.03, active: false },
+  gifts: { rate: 0.06, active: false }
+};
+
+function formatNum(n) {
+  if (n >= 1000) return (n/1000).toFixed(1).replace('.0','') + 'K';
+  return n.toString();
+}
+
+function formatPts(n) {
+  return n.toLocaleString('en-IN');
+}
+
+function updateTripMeter() {
+  const spend = parseInt(document.getElementById('spend-slider').value);
+  document.getElementById('spend-display').textContent = spend.toLocaleString('en-IN');
+
+  // Calculate monthly earn
+  let monthlyEarn = 0;
+  let fashionPts = 0, foodPts = 0, groceryPts = 0, otherPts = 0;
+
+  if (spendCategories.fashion.active) {
+    fashionPts = Math.round(spend * 0.3 * spendCategories.fashion.rate);
+    monthlyEarn += fashionPts;
+  }
+  if (spendCategories.food.active) {
+    foodPts = Math.round(spend * 0.2 * spendCategories.food.rate);
+    monthlyEarn += foodPts;
+  }
+  if (spendCategories.grocery.active) {
+    groceryPts = Math.round(spend * 0.25 * spendCategories.grocery.rate);
+    monthlyEarn += groceryPts;
+  }
+  if (spendCategories.travel.active) {
+    const t = Math.round(spend * 0.1 * spendCategories.travel.rate);
+    otherPts += t;
+    monthlyEarn += t;
+  }
+  if (spendCategories.entertainment.active) {
+    const e = Math.round(spend * 0.1 * spendCategories.entertainment.rate);
+    otherPts += e;
+    monthlyEarn += e;
+  }
+  if (spendCategories.gifts.active) {
+    const g = Math.round(spend * 0.05 * spendCategories.gifts.rate);
+    otherPts += g;
+    monthlyEarn += g;
+  }
+
+  if (monthlyEarn === 0) monthlyEarn = 1; // prevent divide by zero
+
+  const goal = selectedDestData.goal;
+  const ptsNeeded = Math.max(0, goal - currentEarnedBase);
+  const pct = Math.min(100, Math.round((currentEarnedBase / goal) * 100));
+  const monthsToGoal = ptsNeeded > 0 ? Math.ceil(ptsNeeded / monthlyEarn) : 0;
+
+  // Update ring
+  const circumference = 502;
+  const offset = circumference - (pct / 100) * circumference;
+  document.getElementById('ring-fill').style.strokeDashoffset = offset;
+  document.getElementById('ring-pct').textContent = pct + '%';
+
+  // Update stats
+  document.getElementById('pts-per-month').textContent = formatPts(monthlyEarn);
+  document.getElementById('pts-needed').textContent = formatPts(ptsNeeded);
+  document.getElementById('months-to-goal').textContent = monthsToGoal > 0 ? monthsToGoal : '✓';
+
+  // Update destination
+  document.getElementById('results-emoji').textContent = selectedDestData.emoji;
+  document.getElementById('results-dest').textContent = selectedDestData.name;
+  document.getElementById('results-goal').textContent = formatPts(goal);
+
+  // Update breakdown
+  document.getElementById('tl-fashion').textContent = fashionPts > 0 ? '+' + formatPts(fashionPts) + ' pts' : '—';
+  document.getElementById('tl-food').textContent = foodPts > 0 ? '+' + formatPts(foodPts) + ' pts' : '—';
+  document.getElementById('tl-grocery').textContent = groceryPts > 0 ? '+' + formatPts(groceryPts) + ' pts' : '—';
+  document.getElementById('tl-other').textContent = otherPts > 0 ? '+' + formatPts(otherPts) + ' pts' : '—';
+}
+
+function selectDest(el, name, emoji, goal) {
+  document.querySelectorAll('.dest-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedDestData = { name, emoji, goal };
+  updateTripMeter();
+  showToast('Destination Set!', `Earning toward ${name} ${emoji}`, emoji);
+}
+
+function toggleCat(el, cat, rate) {
+  el.classList.toggle('active');
+  spendCategories[cat].active = el.classList.contains('active');
+  updateTripMeter();
+}
+
+// Initialize
+setTimeout(() => {
+  document.getElementById('ring-fill').style.strokeDashoffset = 502 - (73/100)*502;
+  document.getElementById('ring-pct').textContent = '73%';
+  updateTripMeter();
+}, 500);
+
+// ━━━━━━━━━━━━━━━━━━━━
+// SHARE CARD CREATOR
+// ━━━━━━━━━━━━━━━━━━━━
+let cardDest = 'Bali, Indonesia 🌴';
+
+function updateCard() {
+  const name = document.getElementById('card-name').value || 'Your';
+  document.getElementById('sc-user-display').textContent = `${name}'s Trip Progress`;
+}
+
+function pickCardDest(el, dest) {
+  document.querySelectorAll('.dest-pick-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  cardDest = dest;
+  updateCardPreview();
+}
+
+function updateCardProgress() {
+  const pct = document.getElementById('card-progress').value;
+  document.getElementById('card-pct-label').textContent = pct + '%';
+  updateCardPreview();
+}
+
+function updateCardPreview() {
+  const name = document.getElementById('card-name').value || 'Your';
+  const pct = document.getElementById('card-progress').value;
+  document.getElementById('sc-user-display').textContent = `${name}'s Trip Progress`;
+  document.getElementById('sc-dest-display').innerHTML = `${cardDest}<br>is happening.`;
+  document.getElementById('sc-pct-display').textContent = `${pct}% funded through everyday spending`;
+  document.getElementById('sc-bar-fill').style.width = pct + '%';
+}
+
+function generateCard() {
+  updateCardPreview();
+  const name = document.getElementById('card-name').value || 'Your';
+  showToast('Card Generated! 🎉', `Share ${name}'s progress card to Instagram!`, '🌐');
+
+  // Animate the card
+  const card = document.getElementById('share-card-preview');
+  card.style.transform = 'scale(1.03)';
+  card.style.boxShadow = '0 40px 100px rgba(107,47,191,0.4)';
+  setTimeout(() => {
+    card.style.transform = '';
+    card.style.boxShadow = '';
+  }, 500);
+}
+
+// ━━━━━━━━━━━━━━━━━━━━
+// BEFORE/AFTER TOGGLE (fixed to animate panels)
+// ━━━━━━━━━━━━━━━━━━━━
+function showComparison(view) {
+  const btns = document.querySelectorAll('.toggle-btn');
+  btns.forEach((b, i) => {
+    b.classList.toggle('active', (view === 'before' && i === 0) || (view === 'after' && i === 1));
+  });
+  const before = document.querySelector('.comp-before');
+  const after = document.querySelector('.comp-after');
+  if (view === 'before') {
+    before.style.opacity = '1';
+    before.style.transform = 'scale(1)';
+    after.style.opacity = '0.5';
+    after.style.transform = 'scale(0.97)';
+  } else {
+    before.style.opacity = '0.5';
+    before.style.transform = 'scale(0.97)';
+    after.style.opacity = '1';
+    after.style.transform = 'scale(1)';
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━
+// SMOOTH ANCHOR LINKS
+// ━━━━━━━━━━━━━━━━━━━━
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector(anchor.getAttribute('href'));
+    if (target) {
+      const offset = 80;
+      window.scrollTo({
+        top: target.offsetTop - offset,
+        behavior: 'smooth'
+      });
+    }
+  });
+});
+
+// ━━━━━━━━━━━━━━━━━━━━
+// PARALLAX ON HERO (throttled with rAF)
+// ━━━━━━━━━━━━━━━━━━━━
+let ticking = false;
+const orbElements = document.querySelectorAll('.orb');
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      const scrollY = window.scrollY;
+      if (scrollY < window.innerHeight * 1.5) {
+        orbElements.forEach((orb, i) => {
+          const speed = (i + 1) * 0.1;
+          orb.style.transform = `translateY(${scrollY * speed}px)`;
+        });
+      }
+      ticking = false;
+    });
+    ticking = true;
+  }
+});
+
+// ━━━━━━━━━━━━━━━━━━━━
+// NUMBER COUNTER ANIMATION (fixed)
+// ━━━━━━━━━━━━━━━━━━━━
+function animateCounter(el, target, duration = 2000) {
+  const startTime = performance.now();
+  const suffix = el.dataset.suffix || '';
+  const update = (currentTime) => {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const value = Math.round(eased * target);
+    el.textContent = value.toLocaleString('en-IN') + suffix;
+    if (progress < 1) requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+}
+
+// ━━━━━━━━━━━━━━━━━━━━
+// HOVER INTERACTIONS
+// ━━━━━━━━━━━━━━━━━━━━
+document.querySelectorAll('.pillar-card').forEach(card => {
+  card.addEventListener('mouseenter', () => {
+    card.style.borderColor = 'rgba(107,47,191,0.6)';
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.borderColor = 'rgba(255,255,255,0.08)';
+  });
+});
+
+// ━━━━━━━━━━━━━━━━━━━━
+// MOBILE NAV TOGGLE
+// ━━━━━━━━━━━━━━━━━━━━
+function toggleMobileNav() {
+  document.getElementById('nav-hamburger').classList.toggle('open');
+  document.getElementById('nav-links').classList.toggle('open');
+}
+
+// Close mobile nav when clicking a link
+document.querySelectorAll('#nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById('nav-hamburger').classList.remove('open');
+    document.getElementById('nav-links').classList.remove('open');
+  });
+});
+
+// ━━━━━━━━━━━━━━━━━━━━
+// PAGE LOAD ANIMATION
+// ━━━━━━━━━━━━━━━━━━━━
+document.body.style.opacity = '1';
+</script>
+</body>
+</html>
